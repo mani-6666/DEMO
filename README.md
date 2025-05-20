@@ -1,77 +1,73 @@
-# Personal Portfolio Website
+# Mani's Portfolio Website
 
-This is a simple and elegant **portfolio website** hosted on **GitHub Pages**. It is designed to introduce myself, showcase my resume, and provide a professional online presence using HTML and CSS.
+This is a professional **portfolio website** hosted using **GitHub Pages**. The site introduces myself and showcases my resume directly on the website using HTML, CSS, and a PDF viewer.
 
 ## 🌐 Live Demo
 
-[Visit My Portfolio](https://mani-6666.github.io/portfolio-website/)
+[Visit Portfolio Website](https://mani-6666.github.io/portfolio-website/)
 
 ---
 
 ## 📚 Project Overview
 
-The **Portfolio Website** includes a homepage that greets visitors and introduces me, Veera Venkata Durga Manikanta Nandyala. It provides basic information like my profession, background, and links to my resume or GitHub.
+The portfolio includes:
+- A greeting and introduction
+- Links to my GitHub and LinkedIn profiles
+- My full resume embedded directly in the site using <iframe>
 
 ---
 
-## 🚀 How I Hosted This Project on GitHub Pages
+## 🚀 How I Hosted This on GitHub Pages
 
-The application was deployed as a static website using **GitHub Pages**. Here's how it was done:
+### 1. **Project Structure**
+The project contains:
+- `index.html`: Main webpage with greeting, links, and resume section.
+- `style.css`: Custom styling for layout and responsiveness.
+- `MANI DevOps resume.pdf`: Embedded directly in the site using <iframe>.
 
-### 1. **Prepare the Project**
-   - The project folder contains:
-     - `index.html`: Main HTML file for the website.
-     - `style.css`: CSS file for styling.
-
-### 2. **Create a GitHub Repository**
-   - Created a new repository named `portfolio-website` on GitHub.
-   - Added the project files and pushed using:
-     ```bash
-     git init
-     git add .
-     git commit -m "Initial commit - personal portfolio website"
-     git branch -M main
-     git remote add origin https://github.com/mani-6666/portfolio-website.git
-     git push -u origin main
-     ```
+### 2. **GitHub Setup**
+```bash
+git init
+git add .
+git commit -m "Initial commit - Mani's portfolio site"
+git branch -M main
+git remote add origin https://github.com/mani-6666/portfolio-website.git
+git push -u origin main
+```
 
 ### 3. **Enable GitHub Pages**
-   - Navigate to **Settings** → **Pages** in the repo.
-   - Set **Source** to `main` branch and `/ (root)` folder.
-   - GitHub provided a live link for public access.
+- Go to **Settings** → **Pages**
+- Set source to `main` branch and root (`/`) folder
+- GitHub provides a public live link
 
-### 4. **View Live Site**
-   - Website is accessible at:
-     ```
-     https://mani-6666.github.io/portfolio-website/
-     ```
+---
 
-### 5. **Update Anytime**
-   - Push any changes to the `main` branch and refresh to see them live.
+## ✨ Features
+
+- Clean responsive design using pure CSS
+- Embedded resume with iframe viewer
+- External links to GitHub and LinkedIn
+- Easy to customize or update
 
 ---
 
 ## 🛠️ Tools Used
 
-- **GitHub Pages** for static hosting.
-- **HTML5** for structure.
-- **CSS3** for styling and layout.
+- **HTML5** for page structure
+- **CSS3** for design and layout
+- **GitHub Pages** for free hosting
 
 ---
 
-## 📝 How to Customize
+## 📁 Folder Structure
 
-1. **Edit Content:**
-   - Modify `index.html` to update personal info or structure.
-   - Edit `style.css` to adjust the design.
-
-2. **Push to GitHub:**
-   - Use:
-     ```bash
-     git add .
-     git commit -m "Updated portfolio info"
-     git push
-     ```
+```bash
+portfolio-website/
+├── index.html
+├── style.css
+├── MANI DevOps resume.pdf
+└── README.md
+```
 
 ---
 
@@ -83,4 +79,4 @@ The application was deployed as a static website using **GitHub Pages**. Here's 
 
 ---
 
-Thanks for visiting my portfolio! 🚀
+Thanks for visiting my site! 🚀
