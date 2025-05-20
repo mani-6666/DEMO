@@ -1,189 +1,86 @@
-# Kubernetes with Minikube
+# Personal Portfolio Website
 
-This project demonstrates the deployment and management of applications using Kubernetes on a local environment with Minikube. It includes deploying an NGINX web server, exposing it as a service, scaling it, and inspecting logs.
+This is a simple and elegant **portfolio website** hosted on **GitHub Pages**. It is designed to introduce myself, showcase my resume, and provide a professional online presence using HTML and CSS.
 
-## Table of Contents
+## 🌐 Live Demo
 
-- [Introduction](#introduction)
-- [Project Structure](#project-structure)
-- [Prerequisites](#prerequisites)
-- [Getting Started](#getting-started)
-  - [Step 1: Set up Minikube](#step-1-set-up-minikube)
-  - [Step 2: Deploy the Application](#step-2-deploy-the-application)
-  - [Step 3: Expose the Application](#step-3-expose-the-application)
-  - [Step 4: Scale the Deployment](#step-4-scale-the-deployment)
-  - [Step 5: Inspect Logs](#step-5-inspect-logs)
-- [Configuration Files](#configuration-files)
-  - [Deployment Configuration](#deployment-configuration)
-  - [Service Configuration](#service-configuration)
-- [Key Commands](#key-commands)
-- [Deliverables](#deliverables)
-- [Conclusion](#conclusion)
+[Visit My Portfolio](https://mani-6666.github.io/portfolio-website/)
 
-## Introduction
+---
 
-Kubernetes is a powerful orchestration platform for managing containerized applications. This project utilizes Minikube, a lightweight Kubernetes implementation, to provide a hands-on experience in a local development environment.
+## 📚 Project Overview
 
-## Project Structure
+The **Portfolio Website** includes a homepage that greets visitors and introduces me, Veera Venkata Durga Manikanta Nandyala. It provides basic information like my profession, background, and links to my resume or GitHub.
 
-```bash
-Kubernetes-with-Minikube/
-├── deployment.yaml        # Kubernetes Deployment configuration
-├── service.yaml           # Kubernetes Service configuration
-├── README.md              # Documentation for the project
-```
+---
 
-## Prerequisites
+## 🚀 How I Hosted This Project on GitHub Pages
 
-- Minikube
-- kubectl
-- Docker
+The application was deployed as a static website using **GitHub Pages**. Here's how it was done:
 
-## Getting Started
+### 1. **Prepare the Project**
+   - The project folder contains:
+     - `index.html`: Main HTML file for the website.
+     - `style.css`: CSS file for styling.
 
-### Step 1: Set up Minikube
+### 2. **Create a GitHub Repository**
+   - Created a new repository named `portfolio-website` on GitHub.
+   - Added the project files and pushed using:
+     ```bash
+     git init
+     git add .
+     git commit -m "Initial commit - personal portfolio website"
+     git branch -M main
+     git remote add origin https://github.com/mani-6666/portfolio-website.git
+     git push -u origin main
+     ```
 
-Start Minikube:
+### 3. **Enable GitHub Pages**
+   - Navigate to **Settings** → **Pages** in the repo.
+   - Set **Source** to `main` branch and `/ (root)` folder.
+   - GitHub provided a live link for public access.
 
-```bash
-minikube start --driver=docker
-```
+### 4. **View Live Site**
+   - Website is accessible at:
+     ```
+     https://mani-6666.github.io/portfolio-website/
+     ```
 
-Verify the cluster:
+### 5. **Update Anytime**
+   - Push any changes to the `main` branch and refresh to see them live.
 
-```bash
-kubectl cluster-info
-```
+---
 
-### Step 2: Deploy the Application
+## 🛠️ Tools Used
 
-Apply the deployment configuration:
+- **GitHub Pages** for static hosting.
+- **HTML5** for structure.
+- **CSS3** for styling and layout.
 
-```bash
-kubectl apply -f deployment.yaml
-```
+---
 
-Verify the deployment and pods:
+## 📝 How to Customize
 
-```bash
-kubectl get deployments
-kubectl get pods
-```
+1. **Edit Content:**
+   - Modify `index.html` to update personal info or structure.
+   - Edit `style.css` to adjust the design.
 
-### Step 3: Expose the Application
+2. **Push to GitHub:**
+   - Use:
+     ```bash
+     git add .
+     git commit -m "Updated portfolio info"
+     git push
+     ```
 
-Apply the service configuration:
+---
 
-```bash
-kubectl apply -f service.yaml
-```
+## 🔗 Resources
 
-Verify the service:
+- [GitHub Pages Docs](https://docs.github.com/en/pages)
+- [W3Schools HTML](https://www.w3schools.com/html/)
+- [W3Schools CSS](https://www.w3schools.com/css/)
 
-```bash
-kubectl get services
-```
+---
 
-Access the application:
-
-```bash
-minikube service my-app-service
-```
-
-### Step 4: Scale the Deployment
-
-Scale the application to 4 replicas:
-
-```bash
-kubectl scale deployment my-app --replicas=4
-```
-
-Verify the scaled pods:
-
-```bash
-kubectl get pods
-```
-
-### Step 5: Inspect Logs
-
-Describe the deployment:
-
-```bash
-kubectl describe deployment my-app
-```
-
-View logs of a specific pod:
-
-```bash
-kubectl logs <pod-name>
-```
-
-## Configuration Files
-
-### Deployment Configuration
-
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: my-app
-spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      app: my-app
-  template:
-    metadata:
-      labels:
-        app: my-app
-    spec:
-      containers:
-      - name: my-app-container
-        image: nginx:latest
-        ports:
-        - containerPort: 80
-```
-
-### Service Configuration
-
-```yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: my-app-service
-spec:
-  selector:
-    app: my-app
-  ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 80
-  type: NodePort
-```
-
-## Key Commands
-
-- `minikube start` – Start the Minikube cluster
-- `kubectl apply -f <file>` – Apply a Kubernetes configuration file
-- `kubectl get pods` – List all running pods
-- `kubectl get services` – List all services
-- `kubectl scale deployment <name> --replicas=<num>` – Scale a deployment
-- `kubectl logs <pod-name>` – View logs of a specific pod
-
-## Deliverables
-
-### Files:
-
-- deployment.yaml
-- service.yaml
-- README.md
-
-### Screenshots:
-
-- Output of `kubectl get pods`
-- Output of `kubectl get services`
-- The application running in the browser
-
-## Conclusion
-
-This project demonstrates the fundamentals of Kubernetes, including deploying applications, exposing them as services, scaling deployments, and inspecting logs. Minikube provides a simple way to experiment with Kubernetes in a local environment, making it an excellent tool for learning and testing.
+Thanks for visiting my portfolio! 🚀
