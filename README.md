@@ -1,82 +1,117 @@
-# Mani's Portfolio Website
+# 🖥️ Task 7: Monitor System Resources Using Netdata
 
-This is a professional **portfolio website** hosted using **GitHub Pages**. The site introduces myself and showcases my resume directly on the website using HTML, CSS, and a PDF viewer.
-
-## 🌐 Live Demo
-
-[Visit Portfolio Website](https://mani-6666.github.io/portfolio-website/)
+This project demonstrates how to install and run **Netdata**, a real-time monitoring tool, to visualize system and Docker container performance metrics using Docker.
 
 ---
 
-## 📚 Project Overview
-
-The portfolio includes:
-- A greeting and introduction
-- Links to my GitHub and LinkedIn profiles
-- My full resume embedded directly in the site using <iframe>
+## 🎯 Objective
+To monitor system resources (CPU, memory, disk I/O, network, and Docker containers) in real-time using **Netdata**, and to save logs for analysis.
 
 ---
 
-## 🚀 How I Hosted This on GitHub Pages
+## 🛠 Tools & Technologies Used
 
-### 1. **Project Structure**
-The project contains:
-- `index.html`: Main webpage with greeting, links, and resume section.
-- `style.css`: Custom styling for layout and responsiveness.
-- `MANI DevOps resume.pdf`: Embedded directly in the site using <iframe>.
+- 🐳 Docker
+- 📊 Netdata (Official Docker Image)
+- 🐧 Ubuntu (hosted on AWS EC2)
+- 📂 Linux CLI Tools
 
-### 2. **GitHub Setup**
+---
+
+## ⚙️ Steps to Run Netdata via Docker
+
+### ✅ 1. Install Docker (if not already installed)
 ```bash
-git init
-git add .
-git commit -m "Initial commit - Mani's portfolio site"
-git branch -M main
-git remote add origin https://github.com/mani-6666/portfolio-website.git
-git push -u origin main
+sudo apt update
+sudo apt install docker.io -y
+sudo systemctl start docker
+sudo systemctl enable docker
+sudo usermod -aG docker $USER
+newgrp docker
 ```
 
-### 3. **Enable GitHub Pages**
-- Go to **Settings** → **Pages**
-- Set source to `main` branch and root (`/`) folder
-- GitHub provides a public live link
+### ✅ 2. Run Netdata Container
+```bash
+docker run -d --name=netdata -p 19999:19999   --cap-add SYS_PTRACE   --security-opt apparmor=unconfined   netdata/netdata
+```
 
 ---
 
-## ✨ Features
+## 🌐 Access the Netdata Dashboard
 
-- Clean responsive design using pure CSS
-- Embedded resume with iframe viewer
-- External links to GitHub and LinkedIn
-- Easy to customize or update
+- On your local system: `http://localhost:19999`
+- On a remote server: `http://<your-ec2-ip>:19999`
+
+> Make sure port `19999` is open in your security group.
 
 ---
 
-## 🛠️ Tools Used
+## 📊 Features Explored
 
-- **HTML5** for page structure
-- **CSS3** for design and layout
-- **GitHub Pages** for free hosting
+- CPU, Memory, Disk I/O, Network Monitoring
+- Real-time monitoring of Docker containers
+- Netdata alert thresholds
+- Dashboard panels with detailed graphs
+
+---
+
+## 📝 Logs
+
+### ✅ Saved Logs:
+I accessed the container logs using:
+```bash
+docker logs netdata > Netdata_logs.txt
+```
+
+- The file `Netdata_logs.txt` contains captured logs from the Netdata container.
+- Logs were also explored inside the container at `/var/log/netdata`.
+
+To view logs:
+```bash
+docker exec -it netdata bash
+cd /var/log/netdata
+ls
+cat error.log
+```
+
+---
+
+## 🧪 Output Screenshots
+
+Screenshots added to the GitHub repo include:
+
+- ✅ Netdata dashboard (overview and resource graphs)
+- ✅ Running container (`docker ps`)
+- ✅ Logs and service behavior
 
 ---
 
 ## 📁 Folder Structure
 
 ```bash
-portfolio-website/
-├── index.html
-├── style.css
-├── MANI DevOps resume.pdf
-└── README.md
+netdata-monitoring/
+├── Netdata_logs.txt
+├── screenshots/
+├── README.md
 ```
+
+---
+
+## 📌 Learnings
+
+- How to deploy Netdata using Docker
+- Accessing real-time system health data
+- Saving and reading logs
+- Basic Docker and Linux admin operations
 
 ---
 
 ## 🔗 Resources
 
-- [GitHub Pages Docs](https://docs.github.com/en/pages)
-- [W3Schools HTML](https://www.w3schools.com/html/)
-- [W3Schools CSS](https://www.w3schools.com/css/)
+- [Netdata GitHub](https://github.com/netdata/netdata)
+- [Netdata Docker Hub](https://hub.docker.com/r/netdata/netdata)
+- [Netdata Docs](https://learn.netdata.cloud/docs/agent/packaging/docker)
 
 ---
 
-Thanks for visiting my site! 🚀
+Thanks for reading! 📈🧠
