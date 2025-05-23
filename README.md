@@ -1,117 +1,137 @@
-# 🖥️ Task 7: Monitor System Resources Using Netdata
+# ☕ Task 8: Java Maven Build Job in Jenkins
 
-This project demonstrates how to install and run **Netdata**, a real-time monitoring tool, to visualize system and Docker container performance metrics using Docker.
+This project demonstrates how to set up a **Jenkins Freestyle job** to build a simple Java application using **Apache Maven**, all running inside a Docker-based Jenkins container.
 
 ---
 
 ## 🎯 Objective
-To monitor system resources (CPU, memory, disk I/O, network, and Docker containers) in real-time using **Netdata**, and to save logs for analysis.
+
+To configure Jenkins to build a Java Maven application and show a successful build output using `mvn clean package`.
 
 ---
 
 ## 🛠 Tools & Technologies Used
 
-- 🐳 Docker
-- 📊 Netdata (Official Docker Image)
-- 🐧 Ubuntu (hosted on AWS EC2)
-- 📂 Linux CLI Tools
+- Jenkins (Docker container)
+- Apache Maven (3.8.6)
+- Java JDK 8
+- Linux (Ubuntu)
+- Freestyle Jenkins Job
+- Git (optional)
+- Local project directory
 
 ---
 
-## ⚙️ Steps to Run Netdata via Docker
+## 📁 Project Structure
 
-### ✅ 1. Install Docker (if not already installed)
-```bash
-sudo apt update
-sudo apt install docker.io -y
-sudo systemctl start docker
-sudo systemctl enable docker
-sudo usermod -aG docker $USER
-newgrp docker
 ```
-
-### ✅ 2. Run Netdata Container
-```bash
-docker run -d --name=netdata -p 19999:19999   --cap-add SYS_PTRACE   --security-opt apparmor=unconfined   netdata/netdata
+hello-java-maven/
+├── pom.xml
+└── src/
+    └── main/
+        └── java/
+            └── HelloWorld.java
 ```
 
 ---
 
-## 🌐 Access the Netdata Dashboard
+## 🧩 Step-by-Step Setup
 
-- On your local system: `http://localhost:19999`
-- On a remote server: `http://<your-ec2-ip>:19999`
+### ✅ 1. Create Java Project
 
-> Make sure port `19999` is open in your security group.
-
----
-
-## 📊 Features Explored
-
-- CPU, Memory, Disk I/O, Network Monitoring
-- Real-time monitoring of Docker containers
-- Netdata alert thresholds
-- Dashboard panels with detailed graphs
-
----
-
-## 📝 Logs
-
-### ✅ Saved Logs:
-I accessed the container logs using:
-```bash
-docker logs netdata > Netdata_logs.txt
+**HelloWorld.java**
+```java
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, Jenkins + Maven!");
+    }
+}
 ```
 
-- The file `Netdata_logs.txt` contains captured logs from the Netdata container.
-- Logs were also explored inside the container at `/var/log/netdata`.
-
-To view logs:
-```bash
-docker exec -it netdata bash
-cd /var/log/netdata
-ls
-cat error.log
-```
-
----
-
-## 🧪 Output Screenshots
-
-Screenshots added to the GitHub repo include:
-
-- ✅ Netdata dashboard (overview and resource graphs)
-- ✅ Running container (`docker ps`)
-- ✅ Logs and service behavior
-
----
-
-## 📁 Folder Structure
-
-```bash
-netdata-monitoring/
-├── Netdata_logs.txt
-├── screenshots/
-├── README.md
+**pom.xml**
+```xml
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.example</groupId>
+    <artifactId>hello</artifactId>
+    <version>1.0</version>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
 ```
 
 ---
 
-## 📌 Learnings
+### ✅ 2. Run Jenkins in Docker
 
-- How to deploy Netdata using Docker
-- Accessing real-time system health data
-- Saving and reading logs
-- Basic Docker and Linux admin operations
+Mount your local Java project folder into Jenkins container:
+
+```bash
+docker run -d --name jenkins-maven \
+  -p 8080:8080 \
+  -v jenkins_home:/var/jenkins_home \
+  -v /home/ubuntu/hello-java-maven:/mnt/hello-java-maven \
+  jenkins/jenkins:lts
+```
+
+---
+
+### ✅ 3. Configure Jenkins Job
+
+1. Open Jenkins at `http://localhost:8080`
+2. Go to `Manage Jenkins → Global Tool Configuration`
+   - Add Maven (e.g. Maven 3.8.6)
+3. Create new **Freestyle project**
+   - Name: `hello-java-maven-Build`
+   - Build Step: **Invoke top-level Maven targets**
+   - Goals:  
+     ```
+     -f /mnt/hello-java-maven/pom.xml clean package
+     ```
+
+---
+
+### ✅ 4. Run and Validate
+
+- Click **Build Now**
+- Check **Console Output**
+- Confirm it shows:
+  ```
+  [INFO] BUILD SUCCESS
+  ```
+
+---
+
+## 📸 Screenshots
+
+- Jenkins build console showing `BUILD SUCCESS`
+- Jenkins job configuration with Maven goal
+- Project structure on local machine
+
+---
+
+## ✅ Outcome
+
+Successfully automated a Java Maven build using Jenkins via a Docker container. This task taught the basics of continuous integration with Jenkins and Maven.
 
 ---
 
 ## 🔗 Resources
 
-- [Netdata GitHub](https://github.com/netdata/netdata)
-- [Netdata Docker Hub](https://hub.docker.com/r/netdata/netdata)
-- [Netdata Docs](https://learn.netdata.cloud/docs/agent/packaging/docker)
-
----
-
-Thanks for reading! 📈🧠
+- [Jenkins](https://www.jenkins.io/)
+- [Apache Maven](https://maven.apache.org/)
+- [Docker Hub - Jenkins](https://hub.docker.com/r/jenkins/jenkins)
